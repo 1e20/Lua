@@ -21,11 +21,15 @@ function ImmediateDraw:Draw(Type, Properties)
     return Object;
 end; 
 
-function ImmediateDraw:Release()
+function ImmediateDraw:Release(ClearScreen)
     for allocationIndex = 1, #self.Allocated do 
         local Cache = self.Allocated[allocationIndex];
         Remove(self.Allocated, allocationIndex); 
         Insert(self.Memory[Cache.Type], Cache);
+
+        if (ClearScreen) then 
+            Cache.Visible = false;
+        end; 
     end; 
 end;
 
