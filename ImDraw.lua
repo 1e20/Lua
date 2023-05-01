@@ -33,4 +33,14 @@ function ImmediateDraw:Release(ClearScreen)
     end; 
 end;
 
+function ImmediateDraw:Free()
+    for t, c in pairs(self.Memory) do 
+        for i = #c, 1, -1 do 
+            local Cache = c[i];
+            Cache:Remove(); 
+            Remove(c, i);
+        end; 
+    end; 
+end; 
+
 return ImmediateDraw;
