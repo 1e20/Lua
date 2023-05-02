@@ -10,7 +10,7 @@ function ImmediateDraw:Draw(Type, Properties)
     local TypeCache = self.Memory[Type];
     local Object = TypeCache[1] or Drawing.new(Type); 
     
-    if (not Object.Type) then rawset(Object, "Type", Type) end;
+    if (not rawget(Object, "Type")) then rawset(Object, "Type", Type) end;
     
     for p, v in pairs(Properties) do
         if (Object[p] == v) then continue end;  
@@ -26,7 +26,7 @@ function ImmediateDraw:Release(ClearScreen)
     for allocationIndex = 1, #self.Allocated do 
         local Cache = self.Allocated[allocationIndex];
         Remove(self.Allocated, allocationIndex); 
-        Insert(self.Memory[Cache.Type], Cache);
+        Insert(self.Memory[rawget(Object, "Type")], Cache);
 
         if (ClearScreen) then 
             Cache.Visible = false;
