@@ -9,11 +9,12 @@ local ImmediateDraw = {
 function ImmediateDraw:Draw(Type, Properties)
     local TypeCache = self.Memory[Type];
     local Object = TypeCache[1] or Drawing.new(Type); 
-
+    
+    if (not Object.Type) then rawset(Object, "Type", Type) end;
+    
     for p, v in pairs(Properties) do
         if (Object[p] == v) then continue end;  
         Object[p] = v;  
-        rawset(Object, "Type", Type);
     end; 
 
     Remove(TypeCache, 1);
